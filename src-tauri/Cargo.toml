@@ -13,6 +13,7 @@ rust-version = "1.59"
 
 [build-dependencies]
 tauri-build = { version = "2.0.0-alpha.0", features = [] }
+cc = { version = "1.0.79", features = ["parallel"] }
 
 [lib]
 crate-type = ["staticlib", "cdylib", "rlib"]
@@ -26,8 +27,15 @@ sha2 = "0.9.3"
 base64-url = "1.4.13"
 dotenv = "0.15.0"
 hyper = "0.14.13"
-reqwest = "0.11.14"
-diesel = { version = "2.0.0", features = ["postgres", "chrono", "uuid", "r2d2"] }
+reqwest = { version = "0.11.14", default-features = false, features = [
+    "rustls-tls",
+] }
+diesel = { version = "2.0.0", features = [
+    "postgres",
+    "chrono",
+    "uuid",
+    "r2d2",
+] }
 
 [features]
 # by default Tauri runs in production mode

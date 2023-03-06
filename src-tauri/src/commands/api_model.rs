@@ -15,14 +15,18 @@ pub struct HeartData {
 
 #[derive(Deserialize, Debug)]
 pub struct HeartValue {
-    pub customHeartRateZone: Option<HeartZone>,
-    pub HeartRateZone: Option<HeartZone>,
-    pub restingHeartRate: Option<i32>,
+    #[serde(rename = "customHeartRateZone")]
+    pub custom_heartrate_zone: Option<HeartZone>,
+    #[serde(rename = "HeartRateZone")]
+    pub heartrate_zone: Option<HeartZone>,
+    #[serde(rename = "restingHeartRate")]
+    pub resting_heartrate: Option<i32>,
 }
 
 #[derive(Deserialize, Debug)]
 pub struct HeartZone {
-    pub caloriesOut: i32,
+    #[serde(rename = "caloriesOut")]
+    pub calories_out: i32,
     pub max: i32,
     pub min: i32,
     pub minutes: i32,

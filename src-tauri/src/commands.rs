@@ -55,7 +55,7 @@ pub async fn get_fitbit_token(fitbit_code: String) {
     ];
     params.extend(param_data.iter().cloned());
 
-    let client = reqwest::Client::new();
+    let client = reqwest::Client::builder().use_rustls_tls().build().unwrap();
     let response = client
         .post(base_url)
         .header(AUTHORIZATION, authorization_header)
@@ -130,8 +130,8 @@ pub async fn get_heart_data(
     for activity in all_heart_activity {
         let get_value = activity.value.unwrap();
         let date = activity.date_time;
-        if get_value.restingHeartRate.is_some() && date.is_some() {
-            let resting_rate = get_value.restingHeartRate;
+        if get_value.resting_heartrate.is_some() && date.is_some() {
+            let resting_rate = get_value.resting_heartrate;
             let resting_data = HeartFeedDay {
                 heart_rate: resting_rate.unwrap(),
                 date: date.unwrap(),
@@ -153,7 +153,7 @@ pub async fn get_sleep_data(
 ) -> Result<SleepFeed, ()> {
     let connection = &mut state.get().unwrap();
 
-    let most_recent_date = get_most_recent_heart_data(connection);
+    //let most_recent_date = get_most_recent_heart_data(connection);
 
     let now: DateTime<Local> = Local::now();
     let date_string = now.format("%Y-%m-%d").to_string();

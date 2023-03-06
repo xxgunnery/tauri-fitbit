@@ -11,7 +11,8 @@ pub fn establish_connection() -> PostgresPool {
     let manager = ConnectionManager::<PgConnection>::new(&database_url);
 
     Pool::builder()
-        .connection_timeout(Duration::new(5, 0))
+        .connection_timeout(Duration::new(30, 0))
+        .min_idle(Some(1))
         .build(manager)
         .expect("Failed to create pool.")
 }

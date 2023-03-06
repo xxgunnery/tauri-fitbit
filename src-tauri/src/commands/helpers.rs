@@ -2,13 +2,7 @@ use hyper::header::{AUTHORIZATION, CONNECTION, CONTENT_TYPE};
 use reqwest::{Error, Response};
 use serde_json::Value;
 use sha2::{Digest, Sha256};
-use std::{
-    collections::HashMap,
-    env,
-    fs::File,
-    io::{Read, Write},
-    mem::drop,
-};
+use std::{collections::HashMap, env, fs::File, io::Read};
 
 use super::get_fitbit_auth;
 
@@ -29,7 +23,7 @@ pub fn get_fitbit_auth_url(encoded_value: String, window: tauri::Window) {
         client_id, encoded_value, client_state
     );
 
-    window.eval(&format!("window.location.replace('{}')", url));
+    window.eval(&format!("window.location.replace('{}')", url)).unwrap();
 }
 
 pub async fn refresh_access_token(refresh_token: String) -> (String, String) {
@@ -55,7 +49,7 @@ pub async fn refresh_access_token(refresh_token: String) -> (String, String) {
     ];
     params.extend(param_data.iter().cloned());
 
-    let client = reqwest::Client::new();
+    let client = reqwest::Client::builder().use_rustls_tls().build().unwrap();
     let response = client
         .post(url)
         .header(AUTHORIZATION, authorization_header)
@@ -89,7 +83,7 @@ pub async fn make_fitbit_api_call(url: String, window: tauri::Window) -> Result<
 
         let authorization_header = "Bearer ".to_string() + access_token;
 
-        let client = reqwest::Client::new();
+        let client = reqwest::Client::builder().use_rustls_tls().build().unwrap();
         let response = client
             .get(url)
             .header(AUTHORIZATION, authorization_header)
