@@ -23,7 +23,9 @@ pub fn get_fitbit_auth_url(encoded_value: String, window: tauri::Window) {
         client_id, encoded_value, client_state
     );
 
-    window.eval(&format!("window.location.replace('{}')", url)).unwrap();
+    window
+        .eval(&format!("window.location.replace('{}')", url))
+        .unwrap();
 }
 
 pub async fn refresh_access_token(refresh_token: String) -> (String, String) {
@@ -73,7 +75,17 @@ pub async fn refresh_access_token(refresh_token: String) -> (String, String) {
 pub async fn make_fitbit_api_call(url: String, window: tauri::Window) -> Result<Response, Error> {
     {
         println!("GETTING FROM API");
-        let mut file = File::open("../public/data/user_data.json").unwrap();
+        let window_copy = window.clone();
+        let file_result = File::open("../public/data/user_data.json");
+
+        let mut file = match file_result {
+            Ok(file) => file,
+            Err(error) => {
+                get_fitbit_auth(window);
+                panic!("Problem opening the file: {:?}", error);
+            }, 
+        };
+
         let mut contents = String::new();
         file.read_to_string(&mut contents).unwrap();
 
@@ -95,7 +107,7 @@ pub async fn make_fitbit_api_call(url: String, window: tauri::Window) -> Result<
         let status = response.as_ref().unwrap().status();
         if status == 401 {
             println!("AUTHORIZING FITBIT");
-            get_fitbit_auth(window);
+            get_fitbit_auth(window_copy);
             // let refresh_token = json_object.get("refresh_token").unwrap().to_string();
             // let (new_refresh_token, new_access_token) = refresh_access_token(refresh_token).await;
             // file.write_all(

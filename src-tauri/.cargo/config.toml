@@ -4,7 +4,7 @@ target = 'x86_64-pc-windows-msvc'
 linker = 'C:/AndroidSDK/ndk/25.0.8775105\toolchains/llvm/prebuilt/windows-x86_64\bin\aarch64-linux-android24-clang.cmd'
 rustflags = [
     '-L',
-    'C:\Users\xxgun\Documents\pdantonio\Rust\tauri\fitbit\src-tauri/.cargo',
+    'C:\Users\xxgun\Documents\pdantonio\rust\tauri\fitbit\src-tauri/.cargo',
     '-Clink-arg=-landroid',
     '-Clink-arg=-llog',
     '-Clink-arg=-lOpenSLES',
@@ -14,7 +14,7 @@ rustflags = [
 linker = 'C:/AndroidSDK/ndk/25.0.8775105\toolchains/llvm/prebuilt/windows-x86_64\bin\armv7a-linux-androideabi24-clang.cmd'
 rustflags = [
     '-L',
-    'C:\Users\xxgun\Documents\pdantonio\Rust\tauri\fitbit\src-tauri/.cargo',
+    'C:\Users\xxgun\Documents\pdantonio\rust\tauri\fitbit\src-tauri/.cargo',
     '-Clink-arg=-landroid',
     '-Clink-arg=-llog',
     '-Clink-arg=-lOpenSLES',
@@ -24,7 +24,7 @@ rustflags = [
 linker = 'C:/AndroidSDK/ndk/25.0.8775105\toolchains/llvm/prebuilt/windows-x86_64\bin\i686-linux-android24-clang.cmd'
 rustflags = [
     '-L',
-    'C:\Users\xxgun\Documents\pdantonio\Rust\tauri\fitbit\src-tauri/.cargo',
+    'C:\Users\xxgun\Documents\pdantonio\rust\tauri\fitbit\src-tauri/.cargo',
     '-Clink-arg=-landroid',
     '-Clink-arg=-llog',
     '-Clink-arg=-lOpenSLES',
@@ -34,7 +34,7 @@ rustflags = [
 linker = 'C:/AndroidSDK/ndk/25.0.8775105\toolchains/llvm/prebuilt/windows-x86_64\bin\x86_64-linux-android24-clang.cmd'
 rustflags = [
     '-L',
-    'C:\Users\xxgun\Documents\pdantonio\Rust\tauri\fitbit\src-tauri/.cargo',
+    'C:\Users\xxgun\Documents\pdantonio\rust\tauri\fitbit\src-tauri/.cargo',
     '-Clink-arg=-landroid',
     '-Clink-arg=-llog',
     '-Clink-arg=-lOpenSLES',

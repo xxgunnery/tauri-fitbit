@@ -1,11 +1,13 @@
+const { default: next } = require('next');
+
 /** @type {import('next').NextConfig} */
 const isProd = process.env.NODE_ENV === "production";
 module.exports = async (phase, { defaultConfig }) => {
   let internalHost = null;
   if (!isProd) {
-    const { internalIpV4 } = await import("internal-ip");
-    internalHost = await internalIpV4();
-    console.log(internalHost);
+    const os = await import("os");
+    const interfaces = await os.networkInterfaces();
+    internalHost = await interfaces["Ethernet"].filter((interface) => interface.family === "IPv4")[0].address;
   }
 
   const nextConfig = {

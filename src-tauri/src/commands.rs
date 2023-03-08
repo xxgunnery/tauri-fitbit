@@ -32,6 +32,7 @@ pub fn get_fitbit_auth(window: tauri::Window) {
 
 #[tauri::command]
 pub async fn get_fitbit_token(fitbit_code: String) {
+    println!("GETTING FITBIT TOKEN");
     let code = &fitbit_code;
 
     let base_url = "https://api.fitbit.com/oauth2/token";
